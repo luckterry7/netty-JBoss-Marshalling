@@ -33,7 +33,7 @@
 		<!--jboss-marshalling -->
 		<dependency>
 			<groupId>org.jboss.marshalling</groupId>
-			<artifactId>jboss-marshalling</artifactId>
+			<artifactId>jboss-marshalling-serial</artifactId>
 			<version>2.0.0.Beta2</version>
 		</dependency>
 	</dependencies>

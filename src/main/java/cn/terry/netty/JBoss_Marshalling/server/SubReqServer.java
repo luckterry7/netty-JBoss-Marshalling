@@ -9,6 +9,9 @@ import io.netty.channel.nio.NioEventLoop;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.serialization.ClassResolvers;
+import io.netty.handler.codec.serialization.ObjectDecoder;
+import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
@@ -29,9 +32,13 @@ public class SubReqServer {
 				.childHandler(new ChannelInitializer<SocketChannel>() {
 				@Override
 				protected void initChannel(SocketChannel ch) throws Exception {
-					ch.pipeline().addLast(MarshallingCodeFactory.buildMarshallingDecoder())
-								.addLast(MarshallingCodeFactory.buildMarshallingEncoder())
-								.addLast(new SubReqServerHandler());	
+					ch.pipeline()
+						.addLast(MarshallingCodeFactory.buildMarshallingDecoder())
+						.addLast(MarshallingCodeFactory.buildMarshallingEncoder())
+/*						.addLast(new ObjectDecoder(1024*1024, 
+							ClassResolvers.weakCachingResolver(this.getClass().getClassLoader())))
+						.addLast(new ObjectEncoder())
+*/						.addLast(new SubReqServerHandler());	
 				}
 					
 			});
